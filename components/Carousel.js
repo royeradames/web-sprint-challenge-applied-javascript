@@ -25,7 +25,7 @@
 const caraouselDataImages = ["./assets/carousel/mountains.jpeg", './assets/carousel/computer.jpeg', './assets/carousel/trees.jpeg', "./assets/carousel/turntable.jpeg"]
 
 function Carousel(caraouselImagesArr) {
-
+  // debugger
   //init elements
   const carousel = document.createElement('div')
   carousel.classList.add('carousel')
@@ -33,11 +33,12 @@ function Carousel(caraouselImagesArr) {
   const leftButton = document.createElement('div')
   leftButton.classList.add('left-button')
   leftButton.textContent = '<'
+  // leftButton.addEventListener('click')
 
   const imgs = []
   caraouselImagesArr.forEach((item, index) => {
     imgs[index] = document.createElement('img')
-    imgs.src = item
+    imgs[index].src = item
   })
 
   const rightButton = document.createElement('div')
@@ -56,7 +57,10 @@ function Carousel(caraouselImagesArr) {
   //append to html
   const carouselContainer = document.querySelector('div.carousel-container')
   carouselContainer.appendChild(carousel)
-  debugger
+ 
 }
 
+function leftButton(){
+
+}
 Carousel(caraouselDataImages)
