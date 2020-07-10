@@ -23,7 +23,6 @@
 const url = 'https://lambda-times-backend.herokuapp.com/articles'
 axios.get(url)
     .then(articlesDataGet => {
-console.log(articlesDataGet)
         //articles data
         const articles = articlesDataGet.data.articles
         
