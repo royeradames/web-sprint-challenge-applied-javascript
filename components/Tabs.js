@@ -7,7 +7,7 @@
 //
 //  Each tab should look like this:
 //    <div class="tab">topic here</div>
-//
+//  fix do a span not a div
 // NOTE: you do _not_ need to install axios as it's included in the HTML via script element
 
 const url = `https://lambda-times-backend.herokuapp.com/topics`
@@ -16,14 +16,12 @@ axios.get(url)
     const topicsArr = urlObjData.data.topics
     const topics = document.querySelector('div.topics')
     topicsArr.forEach(element => {
-        const tab = document.querySelector('div')
+        let tab = document.querySelector('span')
         tab.classList.add('tab')
         tab.textContent = element
         topics.appendChild(tab)
-        // console.log(tab)
-        // console.log(topics)
-        // debugger
-    });
+        
+    })
 })
 .catch(err =>{
     // debugger
