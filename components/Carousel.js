@@ -22,9 +22,9 @@
     <div class="right-button"> > </div>
   </div>
 */
-const caraouselDataImages = ["../assets/carousel/mountains.jpeg", '../assets/carousel/computer.jpeg', '../assets/carousel/trees.jpeg', "../assets/carousel/turntable.jpeg" ]
+const caraouselDataImages = ["./assets/carousel/mountains.jpeg", './assets/carousel/computer.jpeg', './assets/carousel/trees.jpeg', "./assets/carousel/turntable.jpeg"]
 
-function Carousel(caraouselImagesArr){
+function Carousel(caraouselImagesArr) {
 
   //init elements
   const carousel = document.createElement('div')
@@ -32,6 +32,7 @@ function Carousel(caraouselImagesArr){
 
   const leftButton = document.createElement('div')
   leftButton.classList.add('left-button')
+  leftButton.textContent = '<'
 
   const imgs = []
   caraouselImagesArr.forEach((item, index) => {
@@ -41,20 +42,21 @@ function Carousel(caraouselImagesArr){
 
   const rightButton = document.createElement('div')
   rightButton.classList.add('right-button')
+  rightButton.textContent = '>'
 
   //append elements to parent
   carousel.appendChild(leftButton)
-  
+
   imgs.forEach(item => {
     carousel.appendChild(item)
   })
-  
+
   carousel.appendChild(rightButton)
 
   //append to html
-const carouselContainer = document.querySelector('div.carousel-container')
-carouselContainer.appendChild(carousel)
-debugger
+  const carouselContainer = document.querySelector('div.carousel-container')
+  carouselContainer.appendChild(carousel)
+  debugger
 }
 
 Carousel(caraouselDataImages)
