@@ -20,6 +20,9 @@ axios.get(url)
         tab.classList.add('tab')
         tab.textContent = element
         topics.appendChild(tab)
+        // console.log(tab)
+        // console.log(topics)
+        // debugger
     });
 })
 .catch(err =>{
