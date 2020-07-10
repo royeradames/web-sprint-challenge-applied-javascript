@@ -23,7 +23,7 @@ function Header() {
     const h1 = document.createElement('h1')
     h1.textContent = `Lambda Times`
 
-    const temp = document.createElement9('span')
+    const temp = document.createElement('span')
     temp.classList.add('temp')
     temp.textContent = `98°`
 
@@ -37,3 +37,5 @@ function Header() {
     headerContainer.appendChild(header)
     
 }
+
+Header()
