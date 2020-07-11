@@ -66,14 +66,37 @@ function Carousel(caraouselImagesArr) {
   
   //adding functionality to the buttons
   leftButton.addEventListener('click', () =>{
-    console.log(`inside left button click event`)
-  })
-  rightButton.addEventListener('click', event => {
-    console.log(`inside right button click event`)
     //moving to the 2 image and making left button appear 
-    const [isDisplaying, isNotDisplaying, leftButtonDisplayStatus, currentDisplayImg] = ['block', 'none', leftButton.style.display, document.querySelector('img[style*="display: block;"]')]
+    const [isDisplaying, isNotDisplaying, rightButtonDisplayStatus ] = ['block', 'none', rightButton.style.display]
+    
+    
+    //when on the 2 or more images show the left button
+    let leftButtonNotDisplaying = (rightButtonDisplayStatus === isNotDisplaying)
+    if(leftButtonNotDisplaying){
+      leftButton.style.display = isDisplaying;
+    }
   
-  
+    //hide the displaying image, and make the next image visable
+    //current display image is found by img tag having a display block style
+    //next image to be display can be found by selecting the first sibiling on that displaying image, and then editing it after editing the current display image
+    let currentDisplayImg = carousel.querySelector('img[style*="display: block;"]')
+    let nextImg = carousel.querySelector('img[style*="display: block;"] ~ img')
+    let [AreMoreImgs, noMoreImgs] = [(nextImg != null), (!AreMoreImgs)]
+    console.log(nextImg)
+    if(AreMoreImgs){
+      currentDisplayImg.style.display = isNotDisplaying
+      nextImg.style.display = isDisplaying
+    } else if(noMoreImgs){
+      leftButton.style.display = isNotDisplaying
+    }
+
+  })
+
+  rightButton.addEventListener('click', () => {
+    //moving to the 2 image and making left button appear 
+    const [isDisplaying, isNotDisplaying, leftButtonDisplayStatus ] = ['block', 'none', leftButton.style.display]
+    
+    
     //when on the 2 or more images show the left button
     let leftButtonNotDisplaying = (leftButtonDisplayStatus === isNotDisplaying)
     if(leftButtonNotDisplaying){
@@ -81,36 +104,32 @@ function Carousel(caraouselImagesArr) {
     }
   
     //hide the displaying image, and make the next image visable
-    let currentImgIndex;
-    imgsArr.forEach((img, index) => {
-      let inCurrentImgNot1 = (currentDisplayImg === img)
-
-      //make the current display image not display before displaying the next image
-      if(inCurrentImgNot1){
-        img.style.display = isNotDisplaying;
-        
-        //store the current display image index
-        currentImgIndex = index
-        debugger
-      }
-
-      let onNextImg = (currentImgIndex >= currentImgIndex) || (currentImgIndex <= (currentImgIndex + 1))
-      
-      let inLastImg = (imgsArr.length - 1) === currentImgIndex
-      debugger
-      
-  
-      //act if this is an image that is after the current image
-      if (onNextImg){
-        //if at the last image, don't display right button
-        if(inLastImg){
-          rightButton.style.display = isNotDisplaying
+    //current display image is found by img tag having a display block style
+    //next image to be display can be found by selecting the first sibiling on that displaying image, and then editing it after editing the current display image
+    let currentDisplayImg = carousel.querySelector('img[style*="display: block;"]')
+      //find the index of the current image
+      let  currectImgIndex,previousImgIndex
+        //go though all of the images on the collection
+      imgsArr.forEach((img, index) => {
+        //match the current image with the image collection
+        if(currentDisplayImg == img){
+          currectImgIndex = index
         }
-  
-        //display the image that is next
-        img.style.display = isDisplaying
-      }
-    })
+      })
+      //calc the previous image index
+      previousImgIndex = currectImgIndex - 1
+      // select the previous image and save it to previous img
+    let previousImg = imgsArr[previousImgIndex]
+    
+    let [AreMoreImgs, noMoreImgs] = [(previousImg != null), (!AreMoreImgs)]
+    
+    if(AreMoreImgs){
+      currentDisplayImg.style.display = isNotDisplaying
+      previousImg.style.display = isDisplaying
+    } else if(noMoreImgs){
+      rightButton.style.display = isNotDisplaying
+    }
+    
     
   })
   
