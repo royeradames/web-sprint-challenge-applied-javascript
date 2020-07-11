@@ -74,14 +74,17 @@ function Carousel(caraouselImagesArr) {
     const [isDisplaying, isNotDisplaying, leftButtonDisplayStatus, currentDisplayImg] = ['block', 'none', leftButton.style.display, document.querySelector('img[style*="display: block;"]')]
   
   
-    
+    //when on the 2 or more images show the left button
+    let leftButtonNotDisplaying = (leftButtonDisplayStatus === isNotDisplaying)
+    if(leftButtonNotDisplaying){
+      leftButton.style.display = isDisplaying;
+    }
   
+    //hide the displaying image, and make the next image visable
     let currentImgIndex;
     imgsArr.forEach((img, index) => {
-      let inCurrentImgNot1 = (currentDisplayImg === img) || (index > 0)
-      let onNextImg = (index >= currentImgIndex) || (currentImgIndex <= (currentImgIndex + 1))
-      let leftButtonNotDisplaying = (leftButtonDisplayStatus === isNotDisplaying)
-      let inLastImg = (imgsArr.length - 1) === index
+      let inCurrentImgNot1 = (currentDisplayImg === img)
+
       //make the current display image not display before displaying the next image
       if(inCurrentImgNot1){
         img.style.display = isNotDisplaying;
@@ -90,6 +93,12 @@ function Carousel(caraouselImagesArr) {
         currentImgIndex = index
         debugger
       }
+
+      let onNextImg = (currentImgIndex >= currentImgIndex) || (currentImgIndex <= (currentImgIndex + 1))
+      
+      let inLastImg = (imgsArr.length - 1) === currentImgIndex
+      debugger
+      
   
       //act if this is an image that is after the current image
       if (onNextImg){
@@ -101,13 +110,8 @@ function Carousel(caraouselImagesArr) {
         //display the image that is next
         img.style.display = isDisplaying
       }
-
-      //when on the 2 or more images show the left button
-      if(leftButtonNotDisplaying){
-        leftButton.style.display = isDisplaying;
-        
-      }
     })
+    
   })
   
   //return parent element
