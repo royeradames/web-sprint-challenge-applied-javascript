@@ -25,26 +25,38 @@
 const caraouselDataImages = ["./assets/carousel/mountains.jpeg", './assets/carousel/computer.jpeg', './assets/carousel/trees.jpeg', "./assets/carousel/turntable.jpeg"]
 
 function Carousel(caraouselImagesArr) {
-  // debugger
   //init elements
   const carousel = document.createElement('div')
   carousel.classList.add('carousel')
 
-  const leftButton = document.createElement('div')
-  leftButton.classList.add('left-button')
-  leftButton.textContent = '<'
-  // leftButton.addEventListener('click')
-
+  
+  
   const imgs = []
   caraouselImagesArr.forEach((item, index) => {
     imgs[index] = document.createElement('img')
     imgs[index].src = item
+
+    //display the 1 image has default
+    if(index === 0){
+      imgs[index].style.display = 'block';
+    }
   })
+  
+  //buttons
+  const leftButton = document.createElement('div')
+  leftButton.classList.add('left-button')
+  leftButton.textContent = '<'
+    //don't display the left button at start
+  leftButton.style.display = 'none';
+    //don't allow highling on left button
+  leftButton.style.userSelect = 'none';
 
   const rightButton = document.createElement('div')
   rightButton.classList.add('right-button')
   rightButton.textContent = '>'
-
+    //don't allow highling on right button
+  rightButton.style.userSelect = 'none';
+  
   //append elements to parent
   carousel.appendChild(leftButton)
 
@@ -58,9 +70,51 @@ function Carousel(caraouselImagesArr) {
   const carouselContainer = document.querySelector('div.carousel-container')
   carouselContainer.appendChild(carousel)
  
+
+  //adding functionality to the buttons
+  leftButton.addEventListener('click', leftButtonAction(imgs))
+  rightButton.addEventListener('click', rightButtonAction(imgs, leftButton, rightButton))
+
 }
 
-function leftButton(){
+function leftButtonAction(imgsArr){
 
+}
+function rightButtonAction(imgsArr, leftButton, rightButton){
+
+  //moving to the 2 image and making left button appear 
+  const [isDisplaying, isNotDisplaying, leftButtonDisplayStatus] = ['block', 'none', leftButton.style.display]
+
+    //select current displaying image
+  const currentDisplayImg = document.querySelector('img[style*="display: block;"]')
+
+  //when the when on the 2 or more images show the left button
+  if(leftButtonDisplayStatus === isNotDisplaying){
+    // leftButton.style.display = isDisplaying;
+    
+  }
+
+  let currentImgIndex;
+  imgsArr.forEach((img, index) => {
+    //make the current display image not display
+    if(currentDisplayImg === img){
+      img.style.display = isNotDisplaying;
+      
+      //store the current display image index
+      currentImgIndex = index
+    }
+
+    //act if this is an image that is after the current image
+    if (currentImgIndex <= (index)){
+      //if at the last image, don't display right button
+      if((imgsArr.length - 1) < index){
+        rightButton.style.display = isNotDisplaying
+      }
+
+      //display the image that is next
+      img.style.display = isDisplaying
+    }
+    
+  })
 }
 Carousel(caraouselDataImages)
